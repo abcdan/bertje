@@ -2,7 +2,7 @@ from transformers import BertForMaskedLM, BertTokenizer, pipeline
 
 # Load the trained BERT model
 model = BertForMaskedLM.from_pretrained("./bert_custom_trained_model")
-tokenizer = BertTokenizer.from_pretrained("./custom_tokenizer")
+tokenizer = BertTokenizer.from_pretrained("./tokenizer")
 
 # Set up the pipeline for text generation
 fill_mask = pipeline(

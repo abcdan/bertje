@@ -17,5 +17,5 @@ tokenizer.train(files=file_paths, vocab_size=52000, min_frequency=2, special_tok
     "<mask>",
 ])
 
-# Save files to disk
-tokenizer.save_model("bertje")
+# Save files to disk in the tokenizer folder
+tokenizer.save_model(str(Path(__file__).resolve().parent / "tokenizer"))
