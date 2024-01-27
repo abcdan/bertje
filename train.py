@@ -31,14 +31,24 @@ text_dataset = TextDataset(
 
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=True, mlm_probability=0.15)
 
+def check_and_create_dir(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+output_dir = os.path.join(base_dir, "bert_custom_model")
+check_and_create_dir(output_dir)
+
+logging_dir = os.path.join(base_dir, "logs")
+check_and_create_dir(logging_dir)
+
 training_args = TrainingArguments(
-    output_dir=os.path.join(base_dir, "bert_custom_model"),
+    output_dir=output_dir,
     overwrite_output_dir=True,
     num_train_epochs=3,
     per_device_train_batch_size=8,
     save_steps=1000,
     warmup_steps=500,
-    logging_dir=os.path.join(base_dir, "logs"),
+    logging_dir=logging_dir,
     logging_steps=100,
 )
 
@@ -51,4 +61,6 @@ trainer = Trainer(
 
 trainer.train()
 
-model.save_pretrained(os.path.join(base_dir, "bert_custom_trained_model"))
+model_dir = os.path.join(base_dir, "bert_custom_trained_model")
+check_and_create_dir(model_dir)
+model.save_pretrained(model_dir)
